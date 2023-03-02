@@ -1,9 +1,12 @@
-SELECT 'SHIPPED' AS Ship_Status,
-Order_Id, Order_Date
+(SELECT 'SHIPPED' AS ship_status, order_id, order_date
 FROM Orders
-WHERE Ship_Date IS NOT NULL
+
+Where ship_date IS NOT NULL)
 UNION
-SELECT 'NOT SHIPPED', Order_ID, Order_Date
+
+(SELECT 'NOT SHIPPED' AS ship_status, order_id, order_date
 FROM Orders
-WHERE Ship_Date IS NULL
-ORDER BY Order_Date
+
+Where ship_date IS NULL)
+
+ORDER BY order_date;
