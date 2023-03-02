@@ -1,4 +1,6 @@
-SELECT product_name, list_price, date_added
-  FROM products
- WHERE list_price > 500 AND list_price < 2000
- ORDER BY date_added DESC;
+SELECT product_code,
+product_name,
+list_price,
+discount_percent
+FROM products
+ORDER BY list_price DESC
