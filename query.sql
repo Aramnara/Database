@@ -1,6 +1,17 @@
-SELECT c.first_name, c.last_name, a.line1, a.city, a.state, a.zip_code
-FROM customers c
-JOIN addresses a
-ON c.customer_id = a.customer_id
-AND c.shipping_address_id = a.address_id
-ORDER BY zip_code
+SELECT 
+    c.last_name,
+    c.first_name,
+    o.order_date,
+    p.product_name,
+    oi.item_price,
+    oi.discount_amount,
+    oi.quantity
+FROM
+    customers c
+        INNER JOIN
+    orders o ON c.customer_id = o.customer_id
+        INNER JOIN
+    order_items oi ON o.order_id = oi.order_id
+        INNER JOIN
+    products p ON oi.product_id = p.product_id
+ORDER BY c.last_name , o.order_date , p.product_name;
