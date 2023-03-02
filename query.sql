@@ -1,4 +1,5 @@
-SELECT 100 AS Price,
-.07 AS Tax_Rate,
-100 * .07 AS Tax_Amount,
-(100) + (100 * .07) AS Total
+SELECT c.category_name, p.product_name, p.list_price
+FROM categories c
+JOIN products p
+ON c.category_id=p.category_id
+ORDER BY c.category_name, p.product_name
