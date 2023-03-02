@@ -1,8 +1,1 @@
-SELECT 
-    order_id AS 'The order id',
-    order_date AS 'The order date',
-    ship_date AS 'The ship date'
-FROM
-    orders
-WHERE
-    ship_date IS NULL;
+SELECT order_id, order_date, ship_date from orders where ship_date is null
