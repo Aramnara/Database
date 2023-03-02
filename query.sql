@@ -1,4 +1,6 @@
-SELECT first_name, last_name, CONCAT(last_name, ", ", first_name) AS full_name
-FROM customers
-WHERE last_name >= "M"
-ORDER BY last_name
+SELECT product_name, list_price, discount_percent,
+ROUND(list_price*discount_percent/100, 2) AS 'discount_amount',
+list_price-'discount_amount' AS 'discount_price'
+FROM products
+ORDER BY discount_price DESC
+LIMIT 5
