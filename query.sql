@@ -1,4 +1,3 @@
-insert into customers
-(email_address, password, first_name, last_name)
-values 
-('rick@raven.com ', '','Rick','Raven');
+use my_guitar_shop;
+CREATE INDEX zip_index
+ON addresses (zip_code);
