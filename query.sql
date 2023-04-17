@@ -1,5 +1,4 @@
-UPDATE categories 
-SET 
-    category_name = 'Woodwinds'
-WHERE
-    category_id = (select category_id from categories where category_name='Brass');
+insert into customers
+(email_address, password, first_name, last_name)
+values 
+('rick@raven.com ', '','Rick','Raven');
