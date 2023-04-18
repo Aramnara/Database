@@ -1,3 +1,2 @@
 use my_guitar_shop;
-CREATE INDEX zip_index
-ON addresses (zip_code);
+CREATE INDEX index_zipcode ON Customers(ZipCode);
