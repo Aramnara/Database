@@ -1,3 +1,2 @@
-use my_guitar_shop;
-CREATE INDEX lastname_firstname_index
-ON Customers (last_name, first_name);
+USE my_guitar_shop;
+ALTER TABLE Customers ADD sms_number VARCHAR(20);
