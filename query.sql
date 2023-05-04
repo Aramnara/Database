@@ -1,13 +1,10 @@
-SELECT 
-    order_id, 
-    order_date, 
-    DATE_ADD(order_date, INTERVAL 2 DAY) AS approx_ship_date, 
-    ship_date, 
-    DATEDIFF(ship_date, order_date) AS days_to_ship
-FROM 
-    orders
-WHERE 
-    order_date BETWEEN '2018-03-01' AND '2018-03-31' 
-    AND ship_date IS NOT NULL
-ORDER BY 
-    order_id ASC;
+SELECT product_id, product_name, list_price, discount_percent,
+       ROUND(list_price * discount_percent / 100, 2) AS discount_amount
+FROM products
+WHERE discount_percent IN (
+  SELECT DISTINCT discount_percent
+  FROM products
+  GROUP BY discount_percent
+  HAVING COUNT(*) = 1
+)
+ORDER BY product_name ASC;
