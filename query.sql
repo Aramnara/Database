@@ -2,9 +2,9 @@ USE my_guitar_shop;
 CREATE OR REPLACE VIEW customer_addresses AS
     SELECT 
     c.customer_id,
-    email_address,
-    last_name,
-    first_name,
+    c. email_address,
+    c.last_name,
+    c.first_name,
     ba.line1 AS bill_line1,
     ba.line2 AS bill_line2,
     ba.city AS bill_city,
