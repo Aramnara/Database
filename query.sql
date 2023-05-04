@@ -1,2 +1,2 @@
-ALTER TABLE Customers
+ALTER TABLE customers
 ADD COLUMN sms_number VARCHAR(20);
