@@ -1,13 +1,13 @@
 SELECT 
-    COALESCE(c.email_address, '') AS email_address, 
-    COUNT(o.order_id) AS order_count, 
-    SUM(oi.item_price * oi.quantity) AS order_total 
+    c.email_address, 
+    COALESCE(COUNT(o.order_id), 0) AS order_count,
+    COALESCE(SUM(oi.item_price * oi.quantity), 0) AS order_total
 FROM 
     customers c 
-    JOIN orders o ON c.customer_id = o.customer_id 
-    JOIN order_items oi ON o.order_id = oi.order_id 
+    LEFT JOIN orders o ON c.customer_id = o.customer_id 
+    LEFT JOIN order_items oi ON o.order_id = oi.order_id 
 GROUP BY 
-    email_address 
+    c.email_address 
 HAVING 
     COUNT(o.order_id) > 1 
 ORDER BY 
