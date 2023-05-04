@@ -1,10 +1,11 @@
 SELECT 
-    order_date, 
-    DATE_FORMAT(order_date, '%Y') AS order_year, 
-    DATE_FORMAT(order_date, '%b-%d-%Y') AS order_date_formatted, 
-    DATE_FORMAT(order_date, '%l:%i %p') AS order_time, 
-    DATE_FORMAT(order_date, '%m/%d/%y %H:%i') AS order_datetime 
+    card_number,
+    LENGTH(card_number) AS card_number_length,
+    RIGHT(card_number, 4) AS last_four_digits,
+    IF(LENGTH(card_number) = 16,
+       CONCAT('XXXX-XXXX-XXXX-', RIGHT(card_number, 4)),
+       CONCAT('XXXX-XXXXXX-X', RIGHT(card_number, 4))) AS formatted_number
 FROM 
-    orders 
+    orders
 ORDER BY 
-    order_date ASC;
+    card_number ASC;
