@@ -4,6 +4,6 @@ SELECT
     CONVERT(list_price, SIGNED) AS price_convert,
     CAST(list_price AS SIGNED) AS price_cast
 FROM 
-    Products
+    products
 ORDER BY 
     list_price ASC;
