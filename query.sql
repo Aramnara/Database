@@ -1,9 +1,9 @@
-SELECT product_name, list_price, discount_percent 
-FROM products 
-WHERE discount_percent IN (
-    SELECT discount_percent 
-    FROM products 
-    GROUP BY discount_percent 
-    HAVING COUNT(*) = 1
-) 
-ORDER BY product_name;
+SELECT 
+    list_price,
+    FORMAT(list_price, 1) AS price_format,
+    CONVERT(list_price, INTEGER) AS price_convert,
+    CAST(list_price AS INTEGER) AS price_cast
+FROM 
+    Products
+ORDER BY 
+    list_price ASC;
