@@ -1,6 +1,4 @@
-SELECT product_name, list_price, discount_percent,
-ROUND(list_price*discount_percent/100, 2) AS 'discount_amount',
-(list_price - ROUND(list_price*discount_percent/100, 2)) AS 'discount_price'
-FROM products
-ORDER BY discount_price DESC
-LIMIT 5;
+SELECT order_id, order_date, ship_date
+FROM orders
+WHERE ship_date IS NULL
+ORDER BY order_id DESC;
