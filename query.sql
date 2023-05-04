@@ -3,7 +3,7 @@ SELECT
   COUNT(p.product_id) AS product_count, 
   MAX(p.list_price) AS most_expensive_product 
 FROM 
-  Categories c 
+  categories c 
   JOIN products p ON c.category_id = p.category_id 
 GROUP BY 
   c.category_name 
