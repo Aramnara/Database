@@ -3,4 +3,6 @@ SELECT order_id, order_date,
        ship_date,
        DATEDIFF(ship_date, order_date) AS days_to_ship
 FROM orders
-WHERE ship_date IS NOT NULL AND order_date BETWEEN '2018-03-01' AND '2018-03-31';
+WHERE ship_date IS NOT NULL 
+AND order_date BETWEEN '2018-03-01' AND '2018-03-31'
+AND ship_date BETWEEN '2018-03-01' AND '2018-03-31';
