@@ -4,7 +4,7 @@ SELECT
   SUM((oi.list_price * oi.discount_percent / 100) * oi.quantity) AS discount_amount_total 
 FROM 
   customers c 
-  JOIN Orders o ON c.customer_id = o.customer_id 
+  JOIN orders o ON c.customer_id = o.customer_id 
   JOIN order_items oi ON o.order_id = oi.order_id 
 GROUP BY 
   c.email_address 
