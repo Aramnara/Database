@@ -1,3 +1,2 @@
-ALTER TABLE products
-ADD COLUMN product_price DECIMAL(5,2) DEFAULT 9.99,
-ADD COLUMN added_date DATETIME;
+ALTER TABLE Customers
+ADD COLUMN sms_number VARCHAR(20);
