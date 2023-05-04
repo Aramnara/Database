@@ -1,3 +1,6 @@
-UPDATE customers
-SET first_name = 'Al'
-WHERE email_address = 'allan.sherwood@yahoo.com'
+SELECT 
+  COUNT(*) AS order_count, 
+  SUM(tax_amount) AS tax_total, 
+  AVG(tax_amount) AS tax_average 
+FROM 
+  orders;
