@@ -3,4 +3,4 @@ MAX(list_price) AS MostExpensiveProduct
 FROM categories c JOIN products p
 ON c.category_id = p.category_id
 GROUP BY category_name
-ORDER BY product_ount DESC
+ORDER BY product_count DESC
