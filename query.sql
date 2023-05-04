@@ -1,25 +1,15 @@
-USE my_guitar_shop;
-CREATE OR REPLACE VIEW customer_addresses AS
+use my_guitar_shop;
+CREATE OR REPLACE VIEW order_item_products AS
     SELECT 
-    c.customer_id,
-    c.email_address,
-    c.last_name,
-    c.first_name,
-    ba.line1 AS bill_line1,
-    ba.line2 AS bill_line2,
-    ba.city AS bill_city,
-    ba.state AS bill_state,
-    ba.zip_code AS bill_zip,
-    sa.line1 AS ship_line1,
-    sa.line2 AS ship_line2,
-    sa.city AS ship_city,
-    sa.state AS ship_state,
-    sa.zip_code AS ship_zip
-FROM
-    customers c
-        JOIN
-    addresses ba ON c.customer_id = ba.customer_id
-        AND c.billing_address_id = ba.address_id
-        JOIN
-    addresses sa ON c.customer_id = sa.customer_id
-        AND c.shipping_address_id = sa.address_id;
+        o.order_id,
+        order_date,
+        tax_amount,
+        ship_date,
+        item_price,
+        discount_amount,
+    FROM
+        orders o
+            JOIN
+        order_items oi ON o.order_id = oi.order_id
+            JOIN
+        products p ON oi.product_id = p.product_id;
