@@ -2,11 +2,11 @@ use my_guitar_shop;
 CREATE OR REPLACE VIEW order_item_products AS
     SELECT 
         o.order_id,
-        order_date,
-        tax_amount,
-        ship_date,
-        item_price,
-        discount_amount,
+        o.order_date,
+        o.tax_amount,
+        o.ship_date,
+        o.item_price,
+        o.discount_amount,
     FROM
         orders o
             JOIN
