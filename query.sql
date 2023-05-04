@@ -5,6 +5,6 @@ SELECT
     DATE_FORMAT(order_date, '%l:%i %p') AS order_time, 
     DATE_FORMAT(order_date, '%m/%d/%y %H:%i') AS order_datetime 
 FROM 
-    Orders 
+    orders 
 ORDER BY 
     order_date ASC;
