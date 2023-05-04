@@ -1,5 +1,5 @@
 use my_guitar_shop;
-CREATE OR REPLACE VIEW order_item_products AS
+CREATE order_item_products AS
     SELECT 
         o.order_id,
         o.order_date,
