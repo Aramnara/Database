@@ -1,11 +1,9 @@
 SELECT 
-  c.category_name, 
-  COUNT(p.product_id) AS product_count, 
-  MAX(p.list_price) AS most_expensive_product 
+  c.email_address, 
+  SUM(oi.list_price * oi.quantity) AS item_price_total 
 FROM 
-  categories c 
-  JOIN products p ON c.category_id = p.category_id 
+  Customers c 
+  JOIN Orders o ON c.customer_id = o.customer_id 
+  JOIN Order_Items oi ON o.order_id = oi.order_id 
 GROUP BY 
-  c.category_name 
-ORDER BY 
-  COUNT(p.product_id) DESC;
+  c.email_address;
