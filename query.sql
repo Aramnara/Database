@@ -1,9 +1,11 @@
-CREATE VIEW product_summary AS
-SELECT p.product_name, 
-       COUNT(DISTINCT oi.order_id) AS order_count, 
-       SUM(oi.quantity * oi.item_price * (1 - oi.discount_percent)) AS order_total
-FROM products p
-JOIN order_items oi ON p.product_id = oi.product_id
-JOIN orders o ON oi.order_id = o.order_id
-GROUP BY p.product_id
-ORDER BY order_total DESC;
+CREATE VIEW order_item_products AS
+SELECT
+  products.product_name,
+  COUNT(DISTINCT Orders.order_id) AS order_count,
+  SUM(order_items.quantity * order_items.unit_price) AS order_total
+FROM
+  products
+  INNER JOIN order_items ON products.product_id = order_items.product_id
+  INNER JOIN orders ON order_items.order_id = orders.order_id
+GROUP BY
+  products.product_id;
