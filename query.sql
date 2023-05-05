@@ -1,7 +1,7 @@
 CREATE VIEW order_item_products AS
 SELECT
   products.product_name,
-  COUNT(DISTINCT Orders.order_id) AS order_count,
+  COUNT(DISTINCT orders.order_id) AS order_count,
   SUM(order_items.quantity * order_items.unit_price) AS order_total
 FROM
   products
