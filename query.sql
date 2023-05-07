@@ -1,5 +1,8 @@
-CREATE PROCEDURE insert_category(IN category_name VARCHAR(255))
+CREATE FUNCTION discount_price(item_id INT)
+RETURNS DECIMAL(10,2)
 BEGIN
-    INSERT INTO categories (category_name)
-    VALUES (category_name);
+    DECLARE discount DECIMAL(10,2);
+    DECLARE item_price DECIMAL(10,2);
+    SELECT discount_amount, list_price INTO discount, item_price FROM order_Items WHERE order_item_id = item_id;
+    RETURN (item_price - discount);
 END;
