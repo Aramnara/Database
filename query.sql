@@ -1,8 +1,20 @@
-CREATE FUNCTION discount_price(item_id INT)
-RETURNS DECIMAL(10,2)
+CREATE PROCEDURE test(OUT message VARCHAR(1000))
 BEGIN
-    DECLARE discount DECIMAL(10,2);
-    DECLARE item_price DECIMAL(10,2);
-    SELECT MAX(discount_amount), MAX(item_price) INTO discount, item_price FROM order_items;
-    RETURN (item_price - discount);
+    DECLARE product_name VARCHAR(255);
+    DECLARE list_price DECIMAL(10,2);
+    DECLARE result_string VARCHAR(1000) DEFAULT '';
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE product_cursor CURSOR FOR SELECT product_name, list_price FROM products WHERE list_price > 700 ORDER BY list_price DESC;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    
+    OPEN product_cursor;
+    read_loop: LOOP
+        FETCH product_cursor INTO product_name, list_price;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        SET result_string = CONCAT(result_string, '*', product_name, '*', ',', '*', FORMAT(list_price, 2), '*', '|');
+    END LOOP;
+    CLOSE product_cursor;
+    SET message = result_string;
 END;
