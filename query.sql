@@ -1,14 +1,10 @@
-CREATE PROCEDURE test()
+CREATE PROCEDURE test(OUT message VARCHAR(255))
 BEGIN
-    DECLARE lresult VARCHAR(50);
-    BEGIN
-        DECLARE EXIT HANDLER FOR 1062
-        SET lresult = 'Row was not inserted - duplicate entry.';
-        
-        INSERT INTO categories (category_name) VALUES ('Guitars');
-        
-        SET lresult = '1 row was inserted.';
-    END;
-    
-    SELECT lresult AS result;
+    DECLARE product_count INT DEFAULT 0;
+    SELECT COUNT(*) INTO product_count FROM Products;
+    IF (product_count >= 7) THEN
+        SET message = 'The number of products is greater than or equal to 7';
+    ELSE
+        SET message = 'The number of products is less than 7';
+    END IF;
 END;
