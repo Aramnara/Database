@@ -2,25 +2,33 @@ CREATE PROCEDURE test()
 BEGIN
     DECLARE product_name VARCHAR(255);
     DECLARE list_price DECIMAL(10,2);
-    DECLARE result VARCHAR(5000) DEFAULT '';
+    DECLARE result VARCHAR(255) DEFAULT '';
     
-    DECLARE product_cursor CURSOR FOR
+    DECLARE cur CURSOR FOR
         SELECT product_name, list_price
         FROM products
         WHERE list_price > 700
         ORDER BY list_price DESC;
-        
-    OPEN product_cursor;
     
-    FETCH product_cursor INTO product_name, list_price;
-    WHILE (FOUND_ROWS() > 0) DO
-        SET result = CONCAT(result, '*', product_name, '*', ',', '*', FORMAT(list_price, 2), '*', '|');
-        FETCH product_cursor INTO product_name, list_price;
+    OPEN cur;
+    
+    FETCH cur INTO product_name, list_price;
+    IF (product_name IS NOT NULL AND list_price IS NOT NULL) THEN
+        SET result = CONCAT('*', product_name, '*', ',', '*', list_price, '*', '|');
+    END IF;
+    
+    WHILE (product_name IS NOT NULL AND list_price IS NOT NULL) DO
+        FETCH cur INTO product_name, list_price;
+        IF (product_name IS NOT NULL AND list_price IS NOT NULL) THEN
+            SET result = CONCAT(result, '*', product_name, '*', ',', '*', list_price, '*', '|');
+        END IF;
     END WHILE;
     
-    CLOSE product_cursor;
+    CLOSE cur;
+    
+    IF (result = '') THEN
+        SET result = 'No products found';
+    END IF;
     
     SELECT result AS result;
 END;
-
-CALL test();
