@@ -1,34 +1,36 @@
+DROP PROCEDURE IF EXISTS test;
+
+DELIMITER //
+
 CREATE PROCEDURE test()
 BEGIN
-    DECLARE product_name VARCHAR(255);
-    DECLARE list_price DECIMAL(10,2);
-    DECLARE result VARCHAR(255) DEFAULT '';
+DECLARE product_name_var VARCHAR(50);
+DECLARE list_price_var DECIMAL(9,2);
+DECLARE row_not_found TINYINT DEFAULT FALSE;
+DECLARE s_var VARCHAR(400) DEFAULT '';
+
+DECLARE invoice_cursor CURSOR for
+	SELECT 
+		product_name,
+		list_price
+	FROM
+		products
+	WHERE
+		list_price > 700
+	ORDER BY list_price DESC;
     
-    DECLARE cur CURSOR FOR
-        SELECT product_name, list_price
-        FROM products
-        WHERE list_price > 700
-        ORDER BY list_price DESC;
-    
-    OPEN cur;
-    
-    FETCH cur INTO product_name, list_price;
-    IF (product_name IS NOT NULL AND list_price IS NOT NULL) THEN
-        SET result = CONCAT('*', product_name, '*', ',', '*', list_price, '*', '|');
-    END IF;
-    
-    WHILE (product_name IS NOT NULL AND list_price IS NOT NULL) DO
-        FETCH cur INTO product_name, list_price;
-        IF (product_name IS NOT NULL AND list_price IS NOT NULL) THEN
-            SET result = CONCAT(result, '*', product_name, '*', ',', '*', list_price, '*', '|');
-        END IF;
-    END WHILE;
-    
-    CLOSE cur;
-    
-    IF (result = '') THEN
-        SET result = 'No products found';
-    END IF;
-    
-    SELECT result AS result;
-END;
+DECLARE CONTINUE HANDLER FOR NOT FOUND
+	SET row_not_found = TRUE;
+
+OPEN invoice_cursor;
+
+FETCH invoice_cursor INTO product_name_var, list_price_var;
+WHILE row_not_found = FALSE DO
+    SET s_var = CONCAT(s_var,' " ', product_name_var,' " , " ',list_price_var,'" |');
+	FETCH invoice_cursor INTO product_name_var, list_price_var;
+END WHILE;
+
+SELECT s_var AS message;
+END//
+
+call test();
