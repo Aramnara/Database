@@ -1,16 +1,14 @@
 CREATE PROCEDURE test()
 BEGIN
-    DECLARE lresult VARCHAR(100);
-    
-    SET lresult = '';
-
-    INSERT INTO categories (category_name) VALUES ('Guitars');
-    
-    IF ROW_COUNT() = 1 THEN
-        SET lresult = '1 row was inserted.';
-    ELSE
+    DECLARE lresult VARCHAR(50);
+    BEGIN
+        DECLARE EXIT HANDLER FOR 1062
         SET lresult = 'Row was not inserted - duplicate entry.';
-    END IF;
+        
+        INSERT INTO categories (category_name) VALUES ('Guitars');
+        
+        SET lresult = '1 row was inserted.';
+    END;
     
     SELECT lresult AS result;
 END;
