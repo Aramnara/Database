@@ -1,12 +1,10 @@
 CREATE PROCEDURE test()
 BEGIN
-    DECLARE factors VARCHAR(255) DEFAULT '';
-    DECLARE i INT DEFAULT 1;
-    WHILE (i <= 10) DO
-        IF (10 % i = 0 AND 20 % i = 0) THEN
-            SET factors = CONCAT(factors, i, ' ');
-        END IF;
-        SET i = i + 1;
-    END WHILE;
-    SELECT TRIM(CONCAT('Common factors of 10 and 20: ', factors)) AS result;
+    DECLARE product_count INT DEFAULT 0;
+    SELECT COUNT(*) INTO product_count FROM Products;
+    IF (product_count >= 7) THEN
+        SELECT 'The number of products is greater than or equal to 7' AS result;
+    ELSE
+        SELECT 'The number of products is less than 7' AS result;
+    END IF;
 END;
