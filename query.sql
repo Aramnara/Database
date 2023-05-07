@@ -4,7 +4,7 @@ BEGIN
     
     SET lresult = '';
 
-    INSERT INTO Categories (category_name) VALUES ('Guitars');
+    INSERT INTO categories (category_name) VALUES ('Guitars');
     
     IF ROW_COUNT() = 1 THEN
         SET lresult = '1 row was inserted.';
