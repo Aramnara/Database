@@ -1,5 +1,7 @@
-SELECT order_id, COALESCE(ship_date, DATE_ADD(order_date, INTERVAL 2 DAY)) AS approx_ship_date,
-       ship_date, DATEDIFF(ship_date, order_date) AS days_to_ship
-FROM orders
-WHERE order_date IS NOT NULL
-ORDER BY order_id;
+SELECT c.email_address, COUNT(o.order_id) AS order_count, SUM((oi.item_price - oi.discount_amount) * oi.quantity) AS order_total
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+GROUP BY c.customer_id
+HAVING COUNT(o.order_id) > 1
+ORDER BY SUM((oi.item_price - oi.discount_amount) * oi.quantity) DESC;
