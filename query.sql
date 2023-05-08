@@ -1,5 +1,6 @@
-SELECT order_id, order_date, DATE_ADD(order_date, INTERVAL 2 DAY) AS approx_ship_date,
-       ship_date, DATEDIFF(ship_date, order_date) AS days_to_ship
-FROM orders
-WHERE order_date >= '2018-03-01' AND order_date < '2018-04-01' AND ship_date IS NOT NULL
-ORDER BY order_id ASC;
+SELECT c.last_name, c.first_name, o.order_date, p.product_name, oi.item_price, oi.discount_amount, oi.quantity
+FROM customers AS c
+JOIN orders AS o ON c.customer_id = o.customer_id
+JOIN order_items AS oi ON o.order_id = oi.order_id
+JOIN products AS p ON oi.product_id = p.product_id
+ORDER BY c.last_name, o.order_date, p.product_name;
