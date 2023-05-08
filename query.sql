@@ -1,5 +1,8 @@
-SELECT c.email_address, o.order_id AS oldest_order_id, o.order_date AS oldest_order_date
+SELECT c.email_address, COUNT(DISTINCT o.order_id) AS order_count, 
+SUM((oi.item_price - oi.discount_amount) * oi.quantity) AS order_total
 FROM customers c
 JOIN orders o ON c.customer_id = o.customer_id
-WHERE o.order_date = (SELECT MIN(order_date) FROM orders WHERE customer_id = c.customer_id)
-ORDER BY oldest_order_date, oldest_order_id;
+JOIN order_items oi ON o.order_id = oi.order_id
+GROUP BY c.email_address
+HAVING COUNT(DISTINCT o.order_id) > 1
+ORDER BY order_total DESC;
